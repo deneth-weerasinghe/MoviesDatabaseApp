@@ -1,6 +1,6 @@
 package weerasinghe.deneth.repository
 
-import weerasinghe.deneth.data.ActorEntity
+import weerasinghe.deneth.data.entities.ActorEntity
 
 data class ActorDto(
     val id: String,

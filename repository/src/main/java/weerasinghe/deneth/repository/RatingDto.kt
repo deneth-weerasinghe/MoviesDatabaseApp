@@ -1,6 +1,6 @@
 package weerasinghe.deneth.repository
 
-import weerasinghe.deneth.data.RatingEntity
+import weerasinghe.deneth.data.entities.RatingEntity
 
 data class RatingDto(
     val id: String,

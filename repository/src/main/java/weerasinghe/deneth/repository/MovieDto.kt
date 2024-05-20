@@ -1,6 +1,6 @@
 package weerasinghe.deneth.repository
 
-import weerasinghe.deneth.data.MovieEntity
+import weerasinghe.deneth.data.entities.MovieEntity
 
 data class MovieDto(
     val id: String,

@@ -1,4 +1,4 @@
-package weerasinghe.deneth.data
+package weerasinghe.deneth.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

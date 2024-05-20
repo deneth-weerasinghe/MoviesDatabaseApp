@@ -7,6 +7,10 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+import weerasinghe.deneth.data.entities.ActorEntity
+import weerasinghe.deneth.data.entities.MovieEntity
+import weerasinghe.deneth.data.entities.RatingEntity
+import weerasinghe.deneth.data.entities.RoleEntity
 
 @Dao
 abstract class MovieDao {  // abstract class: can have both implemented and abstract functions
