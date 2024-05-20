@@ -3,6 +3,11 @@ package weerasinghe.deneth.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import weerasinghe.deneth.data.MovieDao
+import weerasinghe.deneth.repository.dto.ActorDto
+import weerasinghe.deneth.repository.dto.MovieDto
+import weerasinghe.deneth.repository.dto.RatingDto
+import weerasinghe.deneth.repository.dto.toDto
+import weerasinghe.deneth.repository.dto.toEntity
 
 class MovieDatabaseRepository(
     private val dao: MovieDao  // instance of dao must be passed to create repository, known as constructor injection/dependency injection into constructor

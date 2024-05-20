@@ -1,4 +1,4 @@
-package weerasinghe.deneth.repository
+package weerasinghe.deneth.repository.dto
 
 import weerasinghe.deneth.data.entities.ActorEntity
 

@@ -1,6 +1,9 @@
 package weerasinghe.deneth.repository
 
 import kotlinx.coroutines.flow.Flow
+import weerasinghe.deneth.repository.dto.ActorDto
+import weerasinghe.deneth.repository.dto.MovieDto
+import weerasinghe.deneth.repository.dto.RatingDto
 
 interface MovieRepository {
     val ratingsFlow: Flow<List<RatingDto>>  // exposing flows as properties
