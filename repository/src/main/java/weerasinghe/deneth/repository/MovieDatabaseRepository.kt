@@ -1,8 +1,10 @@
 package weerasinghe.deneth.repository
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import weerasinghe.deneth.data.MovieDao
+import weerasinghe.deneth.data.createDao
 import weerasinghe.deneth.repository.dto.ActorDto
 import weerasinghe.deneth.repository.dto.MovieDto
 import weerasinghe.deneth.repository.dto.RatingDto
@@ -43,4 +45,13 @@ class MovieDatabaseRepository(
     override suspend fun delete(movie: MovieDto) = dao.delete(movie.toEntity())
     override suspend fun delete(actor: ActorDto) = dao.delete(actor.toEntity())
     override suspend fun resetDatabase() = dao.resetDatabase()
+
+    companion object {
+        // createDao creates the database system and dao to pass into actual movie database:
+        // When the ViewModel wants to create us, it calls create and passes application context
+        // Application context used to create dao
+        // Then passes that dao to movie database repository for use
+        fun create(context: Context) =
+            MovieDatabaseRepository(createDao(context))
+    }
 }

@@ -6,7 +6,7 @@ import androidx.room.Room
 import java.util.concurrent.Executors
 
 fun createDao(context: Context) =
-    // function built with Java, so use class.java (Java metadate) instead of class (Kotlin metadata)
+    // function built with Java, so use class.java (Java metadata) instead of class (Kotlin metadata)
     Room.databaseBuilder(context, MovieDatabase::class.java, "MOVIES")
 //        .setQueryCallback(
 //            {
