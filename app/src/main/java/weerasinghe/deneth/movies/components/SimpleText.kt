@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SimpleText(
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit = {},
 ) =
     Text(
         text = text,
