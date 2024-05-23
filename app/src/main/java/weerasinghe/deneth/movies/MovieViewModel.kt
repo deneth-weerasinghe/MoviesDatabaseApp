@@ -29,7 +29,7 @@ class MovieViewModel(
 // ViewModel instance exists for as long as the screen/activity is not switched to another
 // Rotating would not create a new ViewModel
 
-    var screen by mutableStateOf<Screen>(RatingListScreen)  // makes it so everytime the screen changes, the function is rerun because of by
+    var screen by mutableStateOf<Screen>(RatingListScreen)  // makes it so everytime the screen changes, the function is rerun because of by i.e. refreshes screen
         private set  // public property but hidden setter
 
     val ratingsFlow = repository.ratingsFlow  // flows of dtos
