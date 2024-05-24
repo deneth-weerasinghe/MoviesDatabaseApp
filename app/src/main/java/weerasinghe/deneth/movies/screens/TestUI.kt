@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import weerasinghe.deneth.movies.ActorListScreen
+import weerasinghe.deneth.movies.CastScreen
 import weerasinghe.deneth.movies.MovieListScreen
 import weerasinghe.deneth.movies.MovieViewModel
 import weerasinghe.deneth.movies.RatingListScreen
@@ -42,12 +43,20 @@ fun TestUI(
             RatingListScreen -> RatingList(ratings = ratings) { id ->
                 viewModel.switchTo(RatingScreen(id))
             }
-            MovieListScreen -> MovieList(movies = movies)
+            MovieListScreen -> MovieList(movies = movies) { id ->
+                viewModel.switchTo(CastScreen(id))
+            }
             ActorListScreen -> ActorList(actors = actors)
             is RatingScreen -> RatingsDisplay(
                 ratingId = screen.id,
                 fetchRatingWithMovies = { id ->
                     viewModel.getRatingWithMovies(id)
+                }
+            )
+            is CastScreen -> CastDisplay(
+                movieId = screen.id,
+                fetchMovieWithCast = { id ->
+                    viewModel.getMovieWithCast(id)
                 }
             )
         }

@@ -23,6 +23,10 @@ data class RatingScreen(
     val id: String
 ): Screen
 
+data class CastScreen(
+    val id: String
+): Screen
+
 class MovieViewModel(
     private val repository: MovieRepository
 ): ViewModel() {
@@ -42,6 +46,9 @@ class MovieViewModel(
 
     suspend fun getRatingWithMovies(id: String) =
         repository.getRatingWithMovies(id)  // this is a suspend function so this whole function is suspend as well
+
+    suspend fun getMovieWithCast(id: String) =
+        repository.getMovieWithCast(id)
 
     fun resetDatabase() {  // starts a coroutine and resets database
         // if this coroutine is running while MovieViewModel ends, it will cancel all the MovieViewModel is doing

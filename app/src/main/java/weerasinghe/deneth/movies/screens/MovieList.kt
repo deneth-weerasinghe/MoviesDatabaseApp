@@ -7,12 +7,15 @@ import weerasinghe.deneth.repository.dto.MovieDto
 
 @Composable
 fun MovieList(
-    movies: List<MovieDto>
-) {
+    movies: List<MovieDto>,
+    onMovieClick: (String) -> Unit,
+    ) {
     Column {
         SimpleText(text = "Movies")
         movies.forEach {  // loops until all movies displayed
-            SimpleText(text = it.title)
+            SimpleText(text = it.title) {
+                onMovieClick(it.id)
+            }
         }
     }
 }
