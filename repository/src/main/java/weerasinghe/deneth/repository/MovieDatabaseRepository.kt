@@ -6,8 +6,11 @@ import kotlinx.coroutines.flow.map
 import weerasinghe.deneth.data.MovieDao
 import weerasinghe.deneth.data.createDao
 import weerasinghe.deneth.repository.dto.ActorDto
+import weerasinghe.deneth.repository.dto.ActorWithFilmographyDto
 import weerasinghe.deneth.repository.dto.MovieDto
+import weerasinghe.deneth.repository.dto.MovieWithCastDto
 import weerasinghe.deneth.repository.dto.RatingDto
+import weerasinghe.deneth.repository.dto.RatingWithMovieDto
 import weerasinghe.deneth.repository.dto.toDto
 import weerasinghe.deneth.repository.dto.toEntity
 
@@ -32,6 +35,13 @@ class MovieDatabaseRepository(
             .map { actors ->
                 actors.map { it.toDto() }  // using it is shorter syntax
             }
+
+    override suspend fun getRatingWithMovies(id: String): RatingWithMovieDto =
+        dao.getRatingWithMovies(id).toDto()
+    override suspend fun getMovieWithCast(id: String): MovieWithCastDto =
+        dao.getMovieWithCast(id).toDto()
+    override suspend fun getActorWithFilmography(id: String): ActorWithFilmographyDto =
+        dao.getActorWithFilmography(id).toDto()
 
     override suspend fun insert(rating: RatingDto) = dao.insert(rating.toEntity())  // note lack of varargs
     override suspend fun insert(movie: MovieDto) = dao.insert(movie.toEntity())
