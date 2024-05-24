@@ -40,12 +40,16 @@ class MovieViewModel(
         this.screen = screen
     }
 
+    suspend fun getRatingWithMovies(id: String) =
+        repository.getRatingWithMovies(id)  // this is a suspend function so this whole function is suspend as well
+
     fun resetDatabase() {  // starts a coroutine and resets database
         // if this coroutine is running while MovieViewModel ends, it will cancel all the MovieViewModel is doing
         viewModelScope.launch {
             repository.resetDatabase()
         }
     }
+
     companion object {
         val Factory: ViewModelProvider.Factory = object: ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

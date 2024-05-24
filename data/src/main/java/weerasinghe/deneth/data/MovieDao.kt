@@ -8,8 +8,11 @@ import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import weerasinghe.deneth.data.entities.ActorEntity
+import weerasinghe.deneth.data.entities.ActorWithFilmography
 import weerasinghe.deneth.data.entities.MovieEntity
+import weerasinghe.deneth.data.entities.MovieWithCast
 import weerasinghe.deneth.data.entities.RatingEntity
+import weerasinghe.deneth.data.entities.RatingWithMovies
 import weerasinghe.deneth.data.entities.RoleEntity
 
 @Dao
@@ -21,6 +24,17 @@ abstract class MovieDao {  // abstract class: can have both implemented and abst
     @Query("SELECT * FROM ActorEntity")
     abstract fun getActorFlow(): Flow<List<ActorEntity>>
     // note getRolesFlow not used
+
+    // let's add support for more complex objects i.e. more complex queries
+    @Transaction
+    @Query("SELECT * FROM RatingEntity WHERE id = :id")
+    abstract suspend fun getRatingWithMovies(id: String): RatingWithMovies  // return all movies with specific rating
+    @Transaction
+    @Query("SELECT * FROM MovieEntity WHERE id = :id")
+    abstract suspend fun getMovieWithCast(id: String): MovieWithCast
+    @Transaction
+    @Query("SELECT * FROM ActorEntity WHERE id = :id")
+    abstract suspend fun getActorWithFilmography(id: String): ActorWithFilmography
 
     @Insert
     abstract suspend fun insert(vararg ratings: RatingEntity)

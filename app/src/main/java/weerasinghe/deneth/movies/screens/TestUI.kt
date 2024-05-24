@@ -46,6 +46,9 @@ fun TestUI(
             ActorListScreen -> ActorList(actors = actors)
             is RatingScreen -> RatingsDisplay(
                 ratingId = screen.id,
+                fetchRatingWithMovies = { id ->
+                    viewModel.getRatingWithMovies(id)
+                }
             )
         }
     }
