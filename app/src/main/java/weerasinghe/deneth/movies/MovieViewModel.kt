@@ -27,6 +27,10 @@ data class CastScreen(
     val id: String
 ): Screen
 
+data class FilmographyScreen(
+    val id: String
+): Screen
+
 class MovieViewModel(
     private val repository: MovieRepository
 ): ViewModel() {
@@ -49,6 +53,9 @@ class MovieViewModel(
 
     suspend fun getMovieWithCast(id: String) =
         repository.getMovieWithCast(id)
+
+    suspend fun getActorWithFilmography(id: String) =
+        repository.getActorWithFilmography(id)
 
     fun resetDatabase() {  // starts a coroutine and resets database
         // if this coroutine is running while MovieViewModel ends, it will cancel all the MovieViewModel is doing
