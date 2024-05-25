@@ -7,7 +7,7 @@ import androidx.room.Entity
 @Entity(
     primaryKeys = ["actorId", "movieId"]  // needed for associative entities to create unique id
 )
-class RoleEntity(
+data class RoleEntity(
     var movieId: String,
     var actorId: String,
     var character: String,  // associative relationship extra data, likewise with below

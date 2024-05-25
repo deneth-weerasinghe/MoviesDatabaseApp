@@ -7,7 +7,7 @@ import androidx.room.Relation
 import java.util.UUID
 
 @Entity
-class ActorEntity(
+data class ActorEntity(
     @PrimaryKey
     var id: String = UUID.randomUUID().toString(),
     var name: String,

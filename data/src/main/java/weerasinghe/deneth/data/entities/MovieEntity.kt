@@ -7,7 +7,7 @@ import androidx.room.Relation
 import java.util.UUID
 
 @Entity
-class MovieEntity(  // database entity! Parameters are the entity's keys, need those annotations
+data class MovieEntity(  // database entity! Parameters are the entity's keys, need those annotations
     @PrimaryKey
     var id: String = UUID.randomUUID().toString(),
     var title: String,
