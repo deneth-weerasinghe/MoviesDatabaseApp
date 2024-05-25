@@ -17,3 +17,10 @@ fun createDao(context: Context) =
 //  Uncomment above to see what SQL queries are run!
         .build()
         .dao
+
+// creates database in memory rather than relying on files, easier for testing
+fun createInMemoryDB(context: Context) =
+    Room.inMemoryDatabaseBuilder(
+        context,
+        MovieDatabase::class.java
+    ).build()
