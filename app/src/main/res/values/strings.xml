@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Movies</string>
+
+    <string name="reset_database">Reset Database</string>
+
+    <string name="screen_title_rating">MPAA Ratings</string>
+    <string name="screen_title_movies">Movies</string>
+    <string name="screen_title_actors">Actors</string>
+
+    <string name="loading">Loading</string>
 </resources>
