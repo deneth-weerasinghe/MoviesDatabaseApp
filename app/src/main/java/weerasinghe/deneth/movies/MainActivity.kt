@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import weerasinghe.deneth.movies.screens.TestUI
+import weerasinghe.deneth.movies.screens.UI
 import weerasinghe.deneth.movies.ui.theme.MoviesTheme
 
 // Screen type
@@ -31,7 +31,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TestUI(viewModel)
+                    UI(viewModel) {
+                        finish()
+                    }
                 }
             }
         }

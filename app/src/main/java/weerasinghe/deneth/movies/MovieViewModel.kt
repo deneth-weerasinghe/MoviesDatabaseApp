@@ -37,16 +37,30 @@ class MovieViewModel(
 // ViewModel instance exists for as long as the screen/activity is not switched to another
 // Rotating would not create a new ViewModel
 
-    var screen by mutableStateOf<Screen>(RatingListScreen)  // makes it so everytime the screen changes, the function is rerun because of by i.e. refreshes screen
+    var screen by mutableStateOf<Screen?>(MovieListScreen)  // makes it so everytime the screen changes, the function is rerun because of by i.e. refreshes screen
         private set  // public property but hidden setter
+
+    private var screenStack = listOf<Screen>(MovieListScreen)
+        set(value) {
+            field = value
+            screen = value.lastOrNull()
+        }
+
+    fun pushScreen(screen: Screen) {
+        screenStack = screenStack + screen
+    }
+    fun popScreen() {
+        if (screenStack.isNotEmpty()) {
+            screenStack = screenStack.dropLast(1)
+        }
+    }
+    fun setScreenStack(screen: Screen) {
+        screenStack = listOf(screen)
+    }
 
     val ratingsFlow = repository.ratingsFlow  // flows of dtos
     val moviesFlow = repository.moviesFlow
     val actorsFlow = repository.actorsFlow
-
-    fun switchTo(screen: Screen) {
-        this.screen = screen
-    }
 
     suspend fun getRatingWithMovies(id: String) =
         repository.getRatingWithMovies(id)  // this is a suspend function so this whole function is suspend as well

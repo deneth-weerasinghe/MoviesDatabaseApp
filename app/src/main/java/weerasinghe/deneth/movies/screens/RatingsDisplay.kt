@@ -1,19 +1,29 @@
 package weerasinghe.deneth.movies.screens
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import weerasinghe.deneth.movies.R
+import weerasinghe.deneth.movies.Screen
+import weerasinghe.deneth.movies.components.MovieScaffold
 import weerasinghe.deneth.movies.components.SimpleText
 import weerasinghe.deneth.repository.dto.RatingWithMovieDto
 
 @Composable
 fun RatingsDisplay(  // UI element, which are stored as trees joined together by JetpackCompose
     ratingId: String,
-    fetchRatingWithMovies: suspend (String) -> RatingWithMovieDto
-) {
+    fetchRatingWithMovies: suspend (String) -> RatingWithMovieDto,
+    onSelectListScreen: (Screen) -> Unit,
+    onResetDatabase: () -> Unit,
+    onMovieClick: (String) -> Unit,
+    ) {
     var ratingWithMovieDto by remember { mutableStateOf<RatingWithMovieDto?>(null) }
     // we need a bucket (mutableStateOf) to hold ratingWithMovieDto to prevent flickering when fetching
     // remember stores the bucket in sub-tree
@@ -25,11 +35,19 @@ fun RatingsDisplay(  // UI element, which are stored as trees joined together by
         ratingWithMovieDto = fetchRatingWithMovies(ratingId)
     }
 
-    SimpleText(text = "Rating")
-    ratingWithMovieDto?.let { ratingWithMovies ->
-        SimpleText(text = ratingWithMovies.rating.name)
-        ratingWithMovies.movies.forEach { movie ->
-            SimpleText(text = "Movie: ${movie.title}")
+    MovieScaffold(
+        title = ratingWithMovieDto?.rating?.name ?: stringResource(id = R.string.loading),
+        onSelectListScreen = onSelectListScreen,
+        onResetDatabase = onResetDatabase
+    ) { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues)) {
+            ratingWithMovieDto?.let { ratingWithMovies ->
+                ratingWithMovies.movies.forEach { movie ->
+                    SimpleText(text = movie.title) {
+                        onMovieClick(movie.id)
+                    }
+                }
+            }
         }
     }
 }
