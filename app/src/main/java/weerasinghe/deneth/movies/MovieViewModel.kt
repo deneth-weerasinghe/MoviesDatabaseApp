@@ -38,12 +38,14 @@ class MovieViewModel(
 // Rotating would not create a new ViewModel
 
     var screen by mutableStateOf<Screen?>(MovieListScreen)  // makes it so everytime the screen changes, the function is rerun because of by i.e. refreshes screen
-        private set  // public property but hidden setter
+        private set  // public property but hidden setter (only this class can set screen)
 
     private var screenStack = listOf<Screen>(MovieListScreen)
         set(value) {
             field = value
             screen = value.lastOrNull()
+            // when adding to the stack, that screen will be set as the screen property of this class
+            // if screenStack ends up being empty, then set screen property to null
         }
 
     fun pushScreen(screen: Screen) {

@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     UI(viewModel) {
-                        finish()
+                        finish()  // what's passed to onExit() parameter; exits the app when you press back button all the way
                     }
                 }
             }

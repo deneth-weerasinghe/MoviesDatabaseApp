@@ -19,6 +19,7 @@ fun UI(
 ) {
 
     BackHandler {
+        // Handles what to do when back button is pressed (see .popScreen() for detail)
         viewModel.popScreen()
     }
 
@@ -29,7 +30,7 @@ fun UI(
 
     when(val screen = viewModel.screen) {
 
-        null -> onExit()
+        null -> onExit()  // calls what onExit() is when screen is empty, see MainActivity.kt for detail
 
         RatingListScreen -> RatingList(
             ratings = ratings,
