@@ -2,6 +2,8 @@ package weerasinghe.deneth.movies.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,7 +37,11 @@ fun  CastDisplay(
         onSelectListScreen = onSelectListScreen,
         onResetDatabase = onResetDatabase
     ) { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState()),
+        ) {
             movieWithCastDto?.let { movieWithCast ->
                 movieWithCast.cast.forEach { cast ->
                     SimpleText(text = "${cast.character}: ${cast.actor.name}") {

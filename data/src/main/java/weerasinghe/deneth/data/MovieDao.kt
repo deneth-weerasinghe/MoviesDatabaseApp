@@ -86,6 +86,15 @@ abstract class MovieDao {  // abstract class: can have both implemented and abst
             MovieEntity("m2", "Transporter 2", "Jason Statham kicks a bunch of guys in the face", "r4"),
             MovieEntity("m3", "Hobbs and Shaw", "Cars, Explosions and Stuff", "r3"),
             MovieEntity("m4", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m41", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m42", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m43", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m44", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m45", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m46", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m47", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m48", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
+            MovieEntity("m49", "Jumanji - Welcome to the Jungle", "The Rock smolders", "r3"),
         )
         insert(
             ActorEntity("a1", "Jason Statham"),
@@ -93,6 +102,15 @@ abstract class MovieDao {  // abstract class: can have both implemented and abst
             ActorEntity("a3", "Shu Qi"),
             ActorEntity("a4", "Amber Valletta"),
             ActorEntity("a5", "Kevin Hart"),
+            ActorEntity("a51", "Kevin Hart"),
+            ActorEntity("a52", "Kevin Hart"),
+            ActorEntity("a53", "Kevin Hart"),
+            ActorEntity("a54", "Kevin Hart"),
+            ActorEntity("a55", "Kevin Hart"),
+            ActorEntity("a56", "Kevin Hart"),
+            ActorEntity("a57", "Kevin Hart"),
+            ActorEntity("a58", "Kevin Hart"),
+            ActorEntity("a59", "Kevin Hart"),
         )
         insert(
             RoleEntity("m1", "a1", "Frank Martin", 1),
@@ -102,7 +120,15 @@ abstract class MovieDao {  // abstract class: can have both implemented and abst
             RoleEntity("m3", "a2", "Hobbs", 1),
             RoleEntity("m3", "a1", "Shaw", 2),
             RoleEntity("m4", "a2", "Spencer", 1),
-            RoleEntity("m4", "a5", "Fridge", 2),
+            RoleEntity("m4", "a51", "Fridge", 2),
+            RoleEntity("m4", "a52", "Fridge", 2),
+            RoleEntity("m4", "a53", "Fridge", 2),
+            RoleEntity("m4", "a54", "Fridge", 2),
+            RoleEntity("m4", "a55", "Fridge", 2),
+            RoleEntity("m4", "a56", "Fridge", 2),
+            RoleEntity("m4", "a57", "Fridge", 2),
+            RoleEntity("m4", "a58", "Fridge", 2),
+            RoleEntity("m4", "a59", "Fridge", 2),
         )
     }
 
