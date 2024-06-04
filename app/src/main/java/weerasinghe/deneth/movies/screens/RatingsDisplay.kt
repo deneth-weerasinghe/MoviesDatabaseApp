@@ -45,21 +45,33 @@ fun RatingsDisplay(  // UI element, which are stored as trees joined together by
         onSelectListScreen = onSelectListScreen,
         onResetDatabase = onResetDatabase
     ) { paddingValues ->
-        LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            items(
-                items = ratingWithMovieDto?.movies ?: emptyList()
-            ) { movie ->
-                Card(
-                    elevation = CardDefaults.cardElevation(),
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
-                ) {
-                    SimpleText(text = movie.title) {
-                        onMovieClick(movie.id)
+        // using let, takeIf and run is functional way of handling case of empty list, there's also imperative (see FilmographyDisplay
+        ratingWithMovieDto?.let {ratingWithMovieDto ->
+            ratingWithMovieDto
+                .takeIf { it.movies.isNotEmpty() }
+                ?.run {
+                    LazyColumn(modifier = Modifier.padding(paddingValues)) {
+                        items(
+                            items = ratingWithMovieDto.movies
+                        ) { movie ->
+                            Card(
+                                elevation = CardDefaults.cardElevation(),
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .fillMaxWidth()
+                            ) {
+                                SimpleText(text = movie.title) {
+                                    onMovieClick(movie.id)
+                                }
+                            }
+                        }
                     }
                 }
-            }
+                ?: run {
+                    SimpleText(text = stringResource(id = R.string.no_movies_found_for_this_rating),
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                }
         }
     }
 }

@@ -10,11 +10,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SimpleText(
     text: String,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
 ) =
     Text(
         text = text,
-        modifier = Modifier
+        modifier = modifier
             .padding(8.dp)
             .clickable {
                 onClick()

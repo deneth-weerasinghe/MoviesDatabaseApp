@@ -40,18 +40,28 @@ fun  CastDisplay(
         onSelectListScreen = onSelectListScreen,
         onResetDatabase = onResetDatabase
     ) { paddingValues ->
-        LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            items(
-                items = movieWithCastDto?.cast ?: emptyList()
-            ) { cast ->
-                Card(
-                    elevation = CardDefaults.cardElevation(),
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
-                ) {
-                    SimpleText(text = "${cast.character}: ${cast.actor.name}") {
-                        onActorClick(cast.actor.id)
+        val movie = movieWithCastDto  // captures value since getter and setter delegated to mutableState bucket i.e. allows smart cast
+
+        // Imperative way of handling case of empty list (using if instead of scope functions
+        if (movie == null || movie.cast.isEmpty()) {
+            SimpleText(
+                text = stringResource(id = R.string.no_actors_found_for_this_movie),
+                modifier = Modifier.padding(paddingValues)
+            )
+        } else {
+            LazyColumn(modifier = Modifier.padding(paddingValues)) {
+                items(
+                    items = movieWithCastDto?.cast ?: emptyList()
+                ) { cast ->
+                    Card(
+                        elevation = CardDefaults.cardElevation(),
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth()
+                    ) {
+                        SimpleText(text = "${cast.character}: ${cast.actor.name}") {
+                            onActorClick(cast.actor.id)
+                        }
                     }
                 }
             }
