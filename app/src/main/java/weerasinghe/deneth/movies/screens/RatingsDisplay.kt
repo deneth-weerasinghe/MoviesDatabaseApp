@@ -1,7 +1,11 @@
 package weerasinghe.deneth.movies.screens
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -10,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import weerasinghe.deneth.movies.R
 import weerasinghe.deneth.movies.Screen
 import weerasinghe.deneth.movies.components.MovieScaffold
@@ -40,9 +45,16 @@ fun RatingsDisplay(  // UI element, which are stored as trees joined together by
         onSelectListScreen = onSelectListScreen,
         onResetDatabase = onResetDatabase
     ) { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
-            ratingWithMovieDto?.let { ratingWithMovies ->
-                ratingWithMovies.movies.forEach { movie ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
+            items(
+                items = ratingWithMovieDto?.movies ?: emptyList()
+            ) { movie ->
+                Card(
+                    elevation = CardDefaults.cardElevation(),
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                ) {
                     SimpleText(text = movie.title) {
                         onMovieClick(movie.id)
                     }
