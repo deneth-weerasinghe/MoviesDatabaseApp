@@ -1,5 +1,7 @@
 package weerasinghe.deneth.movies.screens
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,27 +42,49 @@ fun  CastDisplay(
         onSelectListScreen = onSelectListScreen,
         onResetDatabase = onResetDatabase
     ) { paddingValues ->
-        val movie = movieWithCastDto  // captures value since getter and setter delegated to mutableState bucket i.e. allows smart cast
+        val movieDto =
+            movieWithCastDto  // captures value since getter and setter delegated to mutableState bucket i.e. allows smart cast
 
         // Imperative way of handling case of empty list (using if instead of scope functions
-        if (movie == null || movie.cast.isEmpty()) {
+        if (movieDto == null || movieDto.cast.isEmpty()) {
             SimpleText(
                 text = stringResource(id = R.string.no_actors_found_for_this_movie),
                 modifier = Modifier.padding(paddingValues)
             )
         } else {
-            LazyColumn(modifier = Modifier.padding(paddingValues)) {
-                items(
-                    items = movieWithCastDto?.cast ?: emptyList()
-                ) { cast ->
-                    Card(
-                        elevation = CardDefaults.cardElevation(),
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth()
-                    ) {
-                        SimpleText(text = "${cast.character}: ${cast.actor.name}") {
-                            onActorClick(cast.actor.id)
+            Column(modifier = Modifier.padding(paddingValues)) {
+                SimpleText(text = stringResource(id = R.string.cast))
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 8.dp)
+                        .weight(1f),
+                ) {
+                    items(
+                        items = movieWithCastDto?.cast ?: emptyList()
+                    ) { cast ->
+                        Card(
+                            elevation = CardDefaults.cardElevation(),
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                SimpleText(
+                                    text = cast.character,
+                                    modifier = Modifier.weight(2f)
+                                ) {
+                                    onActorClick(cast.actor.id)
+                                }
+                                SimpleText(
+                                    text = cast.actor.name,
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    onActorClick(cast.actor.id)
+                                }
+                            }
                         }
                     }
                 }

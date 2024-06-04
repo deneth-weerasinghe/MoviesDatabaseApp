@@ -1,5 +1,6 @@
 package weerasinghe.deneth.movies.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -46,29 +47,38 @@ fun RatingsDisplay(  // UI element, which are stored as trees joined together by
         onResetDatabase = onResetDatabase
     ) { paddingValues ->
         // using let, takeIf and run is functional way of handling case of empty list, there's also imperative (see FilmographyDisplay
-        ratingWithMovieDto?.let {ratingWithMovieDto ->
+        ratingWithMovieDto?.let { ratingWithMovieDto ->
             ratingWithMovieDto
                 .takeIf { it.movies.isNotEmpty() }
-                ?.run {
-                    LazyColumn(modifier = Modifier.padding(paddingValues)) {
-                        items(
-                            items = ratingWithMovieDto.movies
-                        ) { movie ->
-                            Card(
-                                elevation = CardDefaults.cardElevation(),
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                SimpleText(text = movie.title) {
-                                    onMovieClick(movie.id)
+                ?.also { ratingDto ->
+                    Column(modifier = Modifier.padding(paddingValues)) {
+                        SimpleText(text = stringResource(id = R.string.movies, ratingDto.rating.name))
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 8.dp)
+                                .weight(1f),
+                        ) {
+                            items(
+                                items = ratingWithMovieDto.movies
+                            ) { movie ->
+                                Card(
+                                    elevation = CardDefaults.cardElevation(),
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                        .fillMaxWidth()
+                                ) {
+                                    SimpleText(text = movie.title) {
+                                        onMovieClick(movie.id)
+                                    }
                                 }
                             }
                         }
                     }
                 }
                 ?: run {
-                    SimpleText(text = stringResource(id = R.string.no_movies_found_for_this_rating),
+                    SimpleText(
+                        text = stringResource(id = R.string.no_movies_found_for_this_rating),
                         modifier = Modifier.padding(paddingValues)
                     )
                 }

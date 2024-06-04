@@ -1,5 +1,6 @@
 package weerasinghe.deneth.movies.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,27 +41,35 @@ fun FilmographyDisplay(
         onSelectListScreen = onSelectListScreen,
         onResetDatabase = onResetDatabase
     ) { paddingValues ->
-        val actor = actorWithFilmographyDto  // captures value since getter and setter delegated to mutableState bucket i.e. allows smart cast
+        val actorDto = actorWithFilmographyDto  // captures value since getter and setter delegated to mutableState bucket i.e. allows smart cast
 
         // Imperative way of handling case of empty list (using if instead of scope functions
-        if (actor == null || actor.filmography.isEmpty()) {
+        if (actorDto == null || actorDto.filmography.isEmpty()) {
             SimpleText(
                 text = stringResource(id = R.string.no_movies_found_for_this_actor),
                 modifier = Modifier.padding(paddingValues)
             )
         } else {
-            LazyColumn(modifier = Modifier.padding(paddingValues)) {
-                items(
-                    items = actorWithFilmographyDto?.filmography ?: emptyList()
-                ) { filmography ->
-                    Card(
-                        elevation = CardDefaults.cardElevation(),
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth()
-                    ) {
-                        SimpleText(text = "${filmography.character} (${filmography.movie.title})") {
-                            onMovieClick(filmography.movie.id)
+            Column(modifier = Modifier.padding(paddingValues)) {
+                SimpleText(text = stringResource(id = R.string.filmography, actorDto.actor.name))
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 8.dp)
+                        .weight(1f),
+                ) {
+                    items(
+                        items = actorWithFilmographyDto?.filmography ?: emptyList()
+                    ) { filmography ->
+                        Card(
+                            elevation = CardDefaults.cardElevation(),
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .fillMaxWidth()
+                        ) {
+                            SimpleText(text = "${filmography.character} (${filmography.movie.title})") {
+                                onMovieClick(filmography.movie.id)
+                            }
                         }
                     }
                 }
