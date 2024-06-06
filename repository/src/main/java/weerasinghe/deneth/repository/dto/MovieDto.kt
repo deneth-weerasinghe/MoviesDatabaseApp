@@ -3,13 +3,14 @@ package weerasinghe.deneth.repository.dto
 import weerasinghe.deneth.data.entities.MovieEntity
 import weerasinghe.deneth.data.entities.MovieWithCast
 import weerasinghe.deneth.data.entities.RoleWithActor
+import weerasinghe.deneth.repository.HasId
 
 data class MovieDto(
-    val id: String,
+    override val id: String,
     val title: String,
     val description: String,
     var ratingId: String,
-)
+): HasId
 
 // we need to translate between Dto and Entity:
 internal fun MovieEntity.toDto() = // extension function

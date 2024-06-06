@@ -3,11 +3,12 @@ package weerasinghe.deneth.repository.dto
 import weerasinghe.deneth.data.entities.ActorEntity
 import weerasinghe.deneth.data.entities.ActorWithFilmography
 import weerasinghe.deneth.data.entities.RoleWithMovie
+import weerasinghe.deneth.repository.HasId
 
 data class ActorDto(
-    val id: String,
+    override val id: String,
     val name: String,
-)
+): HasId
 
 internal fun ActorEntity.toDto() =
     ActorDto(id = id, name = name)

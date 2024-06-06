@@ -2,12 +2,13 @@ package weerasinghe.deneth.repository.dto
 
 import weerasinghe.deneth.data.entities.RatingEntity
 import weerasinghe.deneth.data.entities.RatingWithMovies
+import weerasinghe.deneth.repository.HasId
 
 data class RatingDto(
-    val id: String,
+    override val id: String,
     val name: String,
     val description: String,
-)
+): HasId
 
 internal fun RatingEntity.toDto() =
     RatingDto(id = id, name = name, description = description)
