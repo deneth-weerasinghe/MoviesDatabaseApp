@@ -1,7 +1,6 @@
 package weerasinghe.deneth.movies.components
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -100,9 +99,7 @@ fun <T: HasId> ListScaffold(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .clickable { onItemClick(item.id) }  // whole row clickable, not just text
+                    modifier = Modifier.padding(8.dp)
                 ) {
                     IconButton(
                         onClick = { onToggleSelection(item.id) },
