@@ -56,6 +56,10 @@ class MovieDatabaseRepository(
     override suspend fun delete(actor: ActorDto) = dao.delete(actor.toEntity())
     override suspend fun resetDatabase() = dao.resetDatabase()
 
+    override suspend fun deleteMovieById(ids: Set<String>) = dao.deleteMovieById(ids)
+    override suspend fun deleteActorById(ids: Set<String>) = dao.deleteActorById(ids)
+    override suspend fun deleteRatingById(ids: Set<String>) = dao.deleteRatingById(ids)
+
     companion object {
         // createDao creates the database system and dao to pass into actual movie database:
         // When the ViewModel wants to create us, it calls create and passes application context

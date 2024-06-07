@@ -29,5 +29,9 @@ interface MovieRepository {
     suspend fun delete(movie: MovieDto)
     suspend fun delete(actor: ActorDto)
 
+    suspend fun deleteMovieById(ids: Set<String>)
+    suspend fun deleteActorById(ids: Set<String>)
+    suspend fun deleteRatingById(ids: Set<String>)
+
     suspend fun resetDatabase()
 }

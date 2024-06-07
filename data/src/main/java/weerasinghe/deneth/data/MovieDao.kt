@@ -63,6 +63,13 @@ abstract class MovieDao {  // abstract class: can have both implemented and abst
     @Delete
     abstract suspend fun delete(vararg roles: RoleEntity)
 
+    @Query("DELETE FROM MovieEntity WHERE id IN (:ids)")
+    abstract suspend fun deleteMovieById(ids: Set<String>)
+    @Query("DELETE FROM ActorEntity WHERE id IN (:ids)")
+    abstract suspend fun deleteActorById(ids: Set<String>)
+    @Query("DELETE FROM RatingEntity WHERE id IN (:ids)")
+    abstract suspend fun deleteRatingById(ids: Set<String>)
+
     @Query("DELETE FROM RatingEntity")
     abstract suspend fun clearRatings()
     @Query("DELETE FROM MovieEntity")
