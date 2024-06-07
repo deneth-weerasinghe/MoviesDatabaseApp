@@ -7,7 +7,7 @@ import androidx.compose.ui.res.stringResource
 import weerasinghe.deneth.movies.R
 import weerasinghe.deneth.movies.Screen
 import weerasinghe.deneth.movies.components.ListScaffold
-import weerasinghe.deneth.movies.components.SimpleText
+import weerasinghe.deneth.movies.components.SimpleListText
 import weerasinghe.deneth.repository.dto.ActorDto
 
 @Composable
@@ -16,6 +16,12 @@ fun ActorList(
     onSelectListScreen: (Screen) -> Unit,
     onResetDatabase: () -> Unit,
     onActorClick: (String) -> Unit,
+
+    // For selection
+    selectedItemIds: Set<String>,
+    onClearSelection: () -> Unit,
+    onToggleSelection: (String) -> Unit,
+    onDeleteSelectedItems: () -> Unit,
 ) = ListScaffold(
     title = stringResource(id = R.string.screen_title_actors),
     onSelectListScreen = onSelectListScreen,
@@ -24,7 +30,12 @@ fun ActorList(
     icon = Icons.Default.Person,
     iconDescriptionId = R.string.tap_to_toggle_selection,
     onItemClick = onActorClick,
-    onToggleSelection = {}
+
+    // For selection
+    selectedItemIds = selectedItemIds,
+    onClearSelection = onClearSelection,
+    onToggleSelection = onToggleSelection,
+    onDeleteSelectedItems = onDeleteSelectedItems
 ) {
-    SimpleText(text = it.name)
+    SimpleListText(text = it.name)
 }

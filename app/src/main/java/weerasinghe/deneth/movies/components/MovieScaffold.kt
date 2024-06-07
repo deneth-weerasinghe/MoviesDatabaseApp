@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Emergency
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Person
@@ -34,10 +36,17 @@ fun MovieScaffold(
     title: String,
     onSelectListScreen: (Screen) -> Unit,
     onResetDatabase: () -> Unit,
+
+    // For selection
+    selectedItemCount: Int = 0,
+    onClearSelections: () -> Unit = {},
+    onDeleteSelectedItems: () -> Unit = {},
+
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         topBar = {
+            if (selectedItemCount == 0) {  // normal behaviour
             TopAppBar(
                 title =  { SimpleText(text = title) },
                 actions = {
@@ -52,6 +61,33 @@ fun MovieScaffold(
                     }
                 }
             )
+            } else {  // behaviour if any is selected, either by longPress initially or tap afterwards
+                TopAppBar(
+                    navigationIcon = {
+                        IconButton(
+                            onClick = onClearSelections,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = stringResource(id = R.string.clear_selections)
+                            )
+                        }
+                    },
+                    title = { SimpleText(text = selectedItemCount.toString()) },
+                    actions = {
+                        IconButton(
+                            onClick = onDeleteSelectedItems,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = stringResource(id = R.string.delete_selected_items)
+                            )
+                        }
+                    }
+                )
+            }
         },
         content = { paddingValues ->
             content(paddingValues)

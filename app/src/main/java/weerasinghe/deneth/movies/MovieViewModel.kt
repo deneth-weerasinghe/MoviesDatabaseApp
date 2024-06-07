@@ -80,6 +80,41 @@ class MovieViewModel(
         }
     }
 
+    var selectedItemIds by mutableStateOf<Set<String>>(emptySet())  // bucket to hold item ids (mutableStateOf is Compose aware state!, let's us update selection on UI)
+        private set
+
+    fun clearSelection() {
+        selectedItemIds = emptySet()
+    }
+
+    fun toggleSelection(id: String) {
+        selectedItemIds =
+            if (id in selectedItemIds) {
+                selectedItemIds - id
+            } else {
+                selectedItemIds + id
+            }
+    }
+
+    fun deleteSelectedActors() {
+        viewModelScope.launch {
+            repository.deleteActorById(selectedItemIds)
+            clearSelection()
+        }
+    }
+    fun deleteSelectedMovies() {
+        viewModelScope.launch {
+            repository.deleteMovieById(selectedItemIds)
+            clearSelection()
+        }
+    }
+    fun deleteSelectedRatings() {
+        viewModelScope.launch {
+            repository.deleteRatingById(selectedItemIds)
+            clearSelection()
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = object: ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
