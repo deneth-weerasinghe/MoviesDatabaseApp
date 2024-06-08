@@ -7,9 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import weerasinghe.deneth.repository.MovieDatabaseRepository
 import weerasinghe.deneth.repository.MovieRepository
+import weerasinghe.deneth.repository.dto.MovieDto
 
 // Let's define a few screens
 sealed interface Screen
@@ -28,6 +31,10 @@ data class CastScreen(
 ): Screen
 
 data class FilmographyScreen(
+    val id: String
+): Screen
+
+data class MovieEditScreen(
     val id: String
 ): Screen
 
@@ -112,6 +119,22 @@ class MovieViewModel(
         viewModelScope.launch {
             repository.deleteRatingById(selectedItemIds)
             clearSelection()
+        }
+    }
+
+    suspend fun getMovie(id: String) =
+        repository.getMovie(id)
+
+    private var movieUpdateJob: Job? = null  // we need a coroutine so we're not updating on UI thread
+    fun updateMovie(movieDto: MovieDto) {
+        // We don't want to execute new jobs at every key stroke
+        // We need only one job running at the same time
+        // So we need to track if there's one running, using this job variable
+        movieUpdateJob?.cancel()  // if one is in progress when we update, cancel it
+        movieUpdateJob = viewModelScope.launch {    // if not cancelled, launch new coroutine to hold on the job
+            delay(500)  // wait 500 ms of no key strokes
+            repository.update(movieDto)  // if waited enough, then do actual update
+            movieUpdateJob = null  // once job is done, clear out
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import weerasinghe.deneth.movies.ActorListScreen
 import weerasinghe.deneth.movies.CastScreen
 import weerasinghe.deneth.movies.FilmographyScreen
+import weerasinghe.deneth.movies.MovieEditScreen
 import weerasinghe.deneth.movies.MovieListScreen
 import weerasinghe.deneth.movies.MovieViewModel
 import weerasinghe.deneth.movies.RatingListScreen
@@ -87,6 +88,9 @@ fun UI(
             onResetDatabase = viewModel::resetDatabase,
             onActorClick = { id ->
                 viewModel.pushScreen(FilmographyScreen(id))
+            },
+            onEdit = { id ->
+                viewModel.pushScreen(MovieEditScreen(id))
             }
         )
         is FilmographyScreen -> FilmographyDisplay(
@@ -97,6 +101,14 @@ fun UI(
             onMovieClick = { id ->
                 viewModel.pushScreen(CastScreen(id))
             }
+        )
+        
+        is MovieEditScreen -> MovieEdit(
+            movieId = screen.id,
+            fetchMovie = viewModel::getMovie,
+            onSelectScreen = viewModel::setScreenStack,
+            onResetDatabase = viewModel::resetDatabase,
+            onMovieUpdate = viewModel::updateMovie
         )
     }
 }

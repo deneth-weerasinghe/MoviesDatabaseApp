@@ -36,6 +36,9 @@ abstract class MovieDao {  // abstract class: can have both implemented and abst
     @Query("SELECT * FROM ActorEntity WHERE id = :id")
     abstract suspend fun getActorWithFilmography(id: String): ActorWithFilmography
 
+    @Query("SELECT * FROM MovieEntity WHERE id = :id")  // retrieves just the one movie entity
+    abstract suspend fun getMovie(id: String): MovieEntity
+
     @Insert
     abstract suspend fun insert(vararg ratings: RatingEntity)
     @Insert

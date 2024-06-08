@@ -16,6 +16,7 @@ interface MovieRepository {
     suspend fun getRatingWithMovies(id: String): RatingWithMovieDto
     suspend fun getMovieWithCast(id: String): MovieWithCastDto
     suspend fun getActorWithFilmography(id: String): ActorWithFilmographyDto
+    suspend fun getMovie(id: String): MovieDto
 
     suspend fun insert(rating: RatingDto)
     suspend fun insert(movie: MovieDto)

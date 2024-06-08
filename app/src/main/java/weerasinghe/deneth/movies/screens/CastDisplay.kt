@@ -30,6 +30,7 @@ fun  CastDisplay(
     onSelectListScreen: (Screen) -> Unit,
     onResetDatabase: () -> Unit,
     onActorClick: (String) -> Unit,
+    onEdit: (String) -> Unit
     ) {
     var movieWithCastDto by remember { mutableStateOf<MovieWithCastDto?>(null) }
 
@@ -40,7 +41,13 @@ fun  CastDisplay(
     MovieScaffold(
         title = movieWithCastDto?.movie?.title ?: stringResource(id = R.string.loading),
         onSelectListScreen = onSelectListScreen,
-        onResetDatabase = onResetDatabase
+        onResetDatabase = onResetDatabase,
+        onEdit =
+            movieWithCastDto?.let { movieWithCast ->  // if movie with cast not fetched yet, set to null
+                {  // creates lambda that calls onEdit with id inside
+                    onEdit(movieWithCast.movie.id)
+                }
+            }
     ) { paddingValues ->
         val movieDto =
             movieWithCastDto  // captures value since getter and setter delegated to mutableState bucket i.e. allows smart cast
