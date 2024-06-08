@@ -21,4 +21,13 @@
     <string name="delete_selected_items">Delete selected items</string>
 
     <string name="loading">Loading</string>
+
+    <string name="name">Name</string>
+    <string name="title">Title</string>
+    <string name="rating_name_placeholder">Enter the actor name</string>
+    <string name="actor_name_placeholder">Enter the rating name</string>
+    <string name="movie_title_placeholder">Enter the movie title</string>
+    <string name="description">Description</string>
+    <string name="movie_description_placeholder">Enter the movie description</string>
+    <string name="rating_description_placeholder">Enter the rating description</string>
 </resources>
